@@ -5,6 +5,10 @@ var (
 )
 
 func Init() error {
+
+	logger.Debug("initializing configs...")
+
+
 	return nil
 }
 
