@@ -10,3 +10,8 @@ run-backend:
 	@clear
 	@echo "Starting $(APP_NAME) API..."
 	@cd $(BACKEND_DIR) && go run $(MAIN_FILE)
+
+run-Database:
+	@clear
+	@echo "Starting Database..."
+	@docker-compose up
