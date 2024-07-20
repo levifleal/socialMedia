@@ -13,10 +13,9 @@ func Init() {
 	logger = config.GetLogger("[Router]")
 	logger.Debug("initializing Router...")
 
-	
 	r := gin.Default()
-	
+
 	initRoutes(r)
-	
+
 	r.Run()
 }

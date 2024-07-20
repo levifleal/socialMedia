@@ -9,9 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/levifleal/socialMedia/backEnd/schemas"
-	"github.com/matoous/go-nanoid/v2"
+	gonanoid "github.com/matoous/go-nanoid/v2"
 	"golang.org/x/crypto/bcrypt"
 )
+
+type MyUserClaim struct {
+	Id    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	jwt.StandardClaims
+}
 
 func SignUpUserHandler(ctx *gin.Context) {
 	request := CreateUserRequest{}
@@ -72,12 +79,17 @@ func hashPassword(pass string) (string, error) {
 func newJwt(data *schemas.User) (string, error) {
 	key := []byte(os.Getenv("JWT_SECRET"))
 
+	claims := MyUserClaim{
+		Id:    data.Id,
+		Name:  data.Name,
+		Email: data.Email,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Minute * 1).Unix(),
+		},
+	}
+
 	//generating token
-	t := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"name":  data.Name,
-		"email": data.Email,
-		"exp":   time.Now().Add(time.Hour * 24),
-	})
+	t := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	//signing token
 	token, err := t.SignedString(key)
