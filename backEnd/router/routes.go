@@ -1,24 +1,22 @@
 package router
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/levifleal/socialMedia/backEnd/handlers/auth"
 )
 
 func initRoutes(r *gin.Engine) {
 
+	auth.InitAuthHandler()
+
 	basePathV1 := "/api/v1"
 
 	v1 := r.Group(basePathV1)
-	{
-		v1.GET("/", func(ctx *gin.Context) {
-			ctx.JSON(http.StatusOK, gin.H{
-				"msg": "Ok",
-			})
-		})
-	}
 
-	// auth := r.Group("/Auth")
+	authRoute := v1.Group("/Auth")
+	{
+		authRoute.POST("/SignIn", auth.SignInUserHandler)
+		authRoute.POST("/SignUp", auth.SignUpUserHandler)
+	}
 
 }

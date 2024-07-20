@@ -15,3 +15,6 @@ run-Database:
 	@clear
 	@echo "Starting Database..."
 	@docker-compose up
+
+tidy:
+	@cd $(BACKEND_DIR) && go mod tidy
