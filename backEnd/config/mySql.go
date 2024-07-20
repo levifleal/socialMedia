@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/levifleal/socialMedia/backEnd/schemas"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -28,6 +29,12 @@ func initMySql() (*gorm.DB, error) {
 	if err != nil {
 		logger.Errorf("cannot connect to mySQL: %s", err.Error())
 		return nil, err
+	}
+
+	//Migrate the User Schema
+	err = db.AutoMigrate(&schemas.User{})
+	if err != nil {
+		logger.Errorf("sqlite autoMigration error: %v", err)
 	}
 
 	return db, nil
