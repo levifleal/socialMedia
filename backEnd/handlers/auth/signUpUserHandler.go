@@ -77,6 +77,10 @@ func hashPassword(pass string) (string, error) {
 }
 
 func newJwt(data *schemas.User) (string, error) {
+	if os.Getenv("JWT_SECRET") == "" {
+
+		return "", fmt.Errorf("jwt secret is empty")
+	}
 	key := []byte(os.Getenv("JWT_SECRET"))
 
 	claims := MyUserClaim{

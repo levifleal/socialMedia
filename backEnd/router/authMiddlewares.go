@@ -25,6 +25,9 @@ func authMiddleware() gin.HandlerFunc {
 		//verify if the token is valid
 		validator := jwt.NewParser(jwt.WithExpirationRequired())
 		_, err := validator.ParseWithClaims(token, jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
+			if os.Getenv("JWT_SECRET") == "" {
+				return "", fmt.Errorf("jwt secret is empty")
+			}
 			key := []byte(os.Getenv("JWT_SECRET"))
 			return key, nil
 		})
