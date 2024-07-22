@@ -20,3 +20,10 @@ func sendSuccess(ctx *gin.Context, token string, data interface{}) {
 		"data":  data,
 	})
 }
+
+func sendOk(ctx *gin.Context) {
+	ctx.Header("content-type", "application/json")
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "success",
+	})
+}

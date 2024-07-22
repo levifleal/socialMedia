@@ -41,7 +41,9 @@ func SignInUserHandler(ctx *gin.Context) {
 		return
 	}
 
-	sendSuccess(ctx, token, schemas.UserRespose{Name: user.Name, Email: user.Email, Id: user.Id, CreatedAt: user.CreatedAt, UpdatedAt: user.UpdatedAt})
+	sendSuccess(ctx, token, schemas.UserRespose{ Email: user.Email, Id: user.Id, BaseSchema: schemas.BaseSchema{
+		CreatedAt: user.CreatedAt, UpdatedAt: user.UpdatedAt,
+	}})
 }
 
 // checking if passwords match thru bcrypt

@@ -15,7 +15,9 @@ func Init() {
 
 	r := gin.Default()
 
+	//initializing routes
 	initRoutes(r)
 
+	//initializing api
 	r.Run()
 }

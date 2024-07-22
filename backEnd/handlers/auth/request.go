@@ -17,6 +17,10 @@ type LoginUserRequest struct {
 	Password string `json:"password"`
 }
 
+type RedefinePasswordRequest struct {
+	Password string `json:"password"`
+}
+
 func (r *CreateUserRequest) Validate() error {
 
 	if r.Name == "" && r.Email == "" && r.Password == "" {
@@ -32,7 +36,6 @@ func (r *CreateUserRequest) Validate() error {
 		return errParamIsRequired("password", "string")
 	}
 
-
 	return nil
 }
 
@@ -47,5 +50,12 @@ func (r *LoginUserRequest) Validate() error {
 		return errParamIsRequired("password", "string")
 	}
 
+	return nil
+}
+
+func (r *RedefinePasswordRequest) Validate() error {
+	if r.Password == "" {
+		return errParamIsRequired("password", "string")
+	}
 	return nil
 }

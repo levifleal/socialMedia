@@ -2,6 +2,6 @@ package handlers
 
 import "github.com/levifleal/socialMedia/backEnd/handlers/auth"
 
-func initHandlers() {
+func Init() {
 	auth.InitAuthHandler()
 }

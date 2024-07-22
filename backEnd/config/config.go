@@ -15,6 +15,8 @@ var (
 
 func Init() error {
 	var err error
+	logger = GetLogger("[Config]")
+
 	logger.Debug("initializing configs...")
 
 	//initialize dotEnv
